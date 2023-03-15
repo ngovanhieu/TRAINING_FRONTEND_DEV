@@ -1,100 +1,90 @@
-import React from 'react';
 import CalculatorTitle from './caculatorTitle';
 import OutputScreen from './outputScreen.js';
 import Button from './button.js';
+import { useState } from 'react';
 
-class Calculator extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            question: '',
-            answer: ''
-        }
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(event){
+function Calculator3 () {
+   const [state,setState] = useState({ question: '',
+   answer: ''})
+    const handleClick = (event) => {
         const value = event.target.value;
         switch (value) {
             case '=': {
-                if (this.state.question!=='')
+                if (state.question!=='')
                 {
                     var ans='';
                     try
                     {
-                        ans = eval(this.state.question);
+                        ans = eval(state.question);
                     }
                     catch(err)
                     {
-                        this.setState({answer: "Math Error"});
+                        setState({...state, answer: "Math Error"});
                     }
                     if (ans===undefined)
-                        this.setState({answer: "Math Error"});
+                        setState({...state, answer: "Math Error"});
                     else
-                        this.setState({ answer: ans , question: this.state.question});
+                        setState({ answer: ans , question: state.question});
                     break;
                 }
             }
             case 'Clear': {
-                this.setState({ question: '', answer: '' });
+                setState({ question: '', answer: '' });
                 break;
             }
 
             case 'Delete': {
-                var str = this.state.question;
+                var str = state.question;
                 str = str.substr(0,str.length-1);
-                this.setState({question: str});
+                setState({...state, question: str});
                 break;
             }
 
             default: {
-                this.setState({ question: this.state.question += value})
+                setState({...state, question: state.question += value})
                 break;
             }
         }
     }
 
-    render()
-    {
-        return (
-            <div className="frame">
-                <CalculatorTitle title="Calculator"/>
-                <div className="mainCalc">
-                    <OutputScreen question={this.state.question} answer={this.state.answer}/>
-                    <div className="button-row">
-                        <Button className="btnaction" label={'Clear'} handleClick = {this.handleClick}/>
-                        <Button className="btnaction" label={'Delete'} handleClick={this.handleClick}/>
-                        <Button className="btnaction" label={'/'} handleClick={this.handleClick}/>
-                    </div>
-                    <div className="button-row">
-                        <Button label={'8'} handleClick={this.handleClick}/>
-                        <Button label={'9'} handleClick={this.handleClick}/>
-                        <Button className="btnaction" label={'+'} handleClick={this.handleClick}/>
-                    </div>
-                    <div className="button-row">
-                        <Button label={'6'} handleClick={this.handleClick}/>
-                        <Button label={'7'} handleClick={this.handleClick}/>
-                        <Button className="btnaction" label={'*'} handleClick={this.handleClick}/>
-                    </div>
-                    <div className="button-row">
-                        <Button label={'4'} handleClick={this.handleClick}/>
-                        <Button label={'5'} handleClick={this.handleClick}/>
-                        <Button className="btnaction" label={'-'} handleClick={this.handleClick}/>
-                    </div>
-                    <div className="button-row">
-                        <Button label={'2'} handleClick={this.handleClick}/>
-                        <Button label={'3'} handleClick={this.handleClick}/>
-                        <Button className="btnaction" label={'.'} handleClick={this.handleClick}/>
-                    </div>
-                    <div className="button-row">
-                        <Button label={'0'} handleClick={this.handleClick}/>
-                        <Button label={'1'} handleClick={this.handleClick}/>
-                        <Button className="btnaction" label={'='} handleClick={this.handleClick}/>
-                    </div>
-                </div>
+    return (  
+    <div className="frame">
+        <CalculatorTitle title="Calculator"/>
+        <div className="mainCalc">
+            <OutputScreen question={state.question} answer={state.answer}/>
+            <div className="button-row">
+                <Button className="btnaction" label={'Clear'} handleClick = {handleClick}/>
+                <Button className="btnaction" label={'Delete'} handleClick={handleClick}/>
+                <Button className="btnaction" label={'/'} handleClick={handleClick}/>
             </div>
-        );
-    }
+            <div className="button-row">
+                <Button label={'8'} handleClick={handleClick}/>
+                <Button label={'9'} handleClick={handleClick}/>
+                <Button className="btnaction" label={'+'} handleClick={handleClick}/>
+            </div>
+            <div className="button-row">
+                <Button label={'6'} handleClick={handleClick}/>
+                <Button label={'7'} handleClick={handleClick}/>
+                <Button className="btnaction" label={'*'} handleClick={handleClick}/>
+            </div>
+            <div className="button-row">
+                <Button label={'4'} handleClick={handleClick}/>
+                <Button label={'5'} handleClick={handleClick}/>
+                <Button className="btnaction" label={'-'} handleClick={handleClick}/>
+            </div>
+            <div className="button-row">
+                <Button label={'2'} handleClick={handleClick}/>
+                <Button label={'3'} handleClick={handleClick}/>
+                <Button className="btnaction" label={'.'} handleClick={handleClick}/>
+            </div>
+            <div className="button-row">
+                <Button label={'0'} handleClick={handleClick}/>
+                <Button label={'1'} handleClick={handleClick}/>
+                <Button className="btnaction" label={'='} handleClick={handleClick}/>
+            </div>
+        </div>
+    </div>
+);
 }
 
-export default Calculator;
+export default Calculator3;
